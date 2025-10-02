@@ -36,6 +36,7 @@ Notes
 - LED patterns are in src/app_events.c and src/status_led.c.
 - User button and debouncing is done is src/buttons.c
 - Error handling is done is app_events.c and watchdog is implemented in watchdog.c
-- AI was used to generate minimal code like function headers and syntaxes.
+- AI was used to generate minimal code like function headers and syntax.
+
 
 
