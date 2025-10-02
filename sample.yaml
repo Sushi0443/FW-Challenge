@@ -1,0 +1,9 @@
+sample:
+  name: BLE Battery Monitor with Custom Service
+  description: Bluetooth Low Energy application with custom 128-bit service for battery monitoring
+common:
+  harness: bluetooth
+  platform_allow: nrf52840dk_nrf52840 nrf5340dk_nrf5340_cpuapp nrf52dk_nrf52832
+  integration_platforms:
+    - nrf52840dk_nrf52840
+  tags: bluetooth ble

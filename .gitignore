@@ -1,0 +1,27 @@
+# Build artifacts
+build/
+*.elf
+*.hex
+*.bin
+*.map
+
+# Zephyr/NCS specific
+.cache/
+zephyr/
+modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
+*.log
+*.tmp
