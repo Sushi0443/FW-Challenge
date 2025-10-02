@@ -1,0 +1,108 @@
+#
+# Copyright (c) 2018 Nordic Semiconductor
+#
+# SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+#
+
+source "Kconfig.zephyr"
+
+menu "FW Challenge Options"
+
+config APP_SAMPLE_INTERVAL_MS
+		int "Sample interval (ms)"
+		default 1000
+		range 10 600000
+		help
+			Interval between ADC samples in milliseconds. Kept within 10 ms and 10 minutes.
+
+config APP_ENABLE_BLE
+		bool "Enable BLE features at boot"
+		default y
+		help
+			When enabled, advertising can be started immediately at boot (subject to runtime toggles).
+
+config APP_LED_ACTIVE_LOW
+		bool "LED is active-low"
+		default y
+		help
+			Select if the status LED GPIO is wired as active-low. If disabled, LED is treated as active-high.
+
+endmenu
+
+menu "FW Challenge Extras"
+
+config APP_VOLTAGE_THRESHOLD_MV
+	int "Voltage threshold (mV)"
+	default 3000
+	range 1000 6000
+	help
+	  Voltage threshold for notifications in millivolts. Kept within 1000 mV and 6000 mV.
+
+config APP_BLE_DEVICE_NAME
+	string "BLE device name"
+	default "FW_Challenge"
+	help
+	  Bluetooth device name used in advertising data.
+
+config APP_BUTTON_DEBOUNCE_DELAY_MS
+	int "Button debounce delay (ms)"
+	default 50
+	range 10 1000
+	help
+	  Debounce delay for the button in milliseconds. Kept within 10 ms and 1 second.
+
+config APP_LOG_LEVEL
+	int "Application log level (0-4)"
+	default 3
+	range 0 4
+	help
+	  Log level for the application (0-4). 0: None, 1: Error, 2: Warning, 3: Info, 4: Debug.
+
+endmenu
+
+menu "FW Challenge System"
+
+config APP_UNIT_TEST
+		bool "Enable unit-test stubs in modules"
+		default n
+		help
+			Internal option used by unit tests to stub hardware-heavy code paths
+			(e.g., ADC/PM interactions) for fast, host-based testing.
+
+config APP_ENABLE_PM
+	bool "Enable power management (PM)"
+	default y
+	help
+	  Enable Zephyr Power Management framework when supported by the SoC/board.
+	  Used to suspend/resume the ADC device between samples.
+	select PM if SYS_CLOCK_EXISTS && HAS_PM
+	select PM_DEVICE if SYS_CLOCK_EXISTS && HAS_PM
+
+config APP_ENABLE_SETTINGS
+	bool "Enable Settings with NVS backend (if available)"
+	default y
+	help
+	  Enable Zephyr Settings subsystem. If flash storage is available, NVS will
+	  be selected as the backend to persist the sample counter.
+	select SETTINGS
+
+endmenu
+
+menu "FW Challenge Watchdog"
+
+config APP_WDT_ENABLE
+	bool "Enable watchdog"
+	default y
+	select WATCHDOG
+	help
+	  Enable the hardware watchdog to reset the system if the app stops feeding it.
+
+config APP_WDT_TIMEOUT_MS
+	int "Watchdog timeout (ms)"
+	default 8000
+	range 100 60000
+	depends on APP_WDT_ENABLE
+	help
+	  Watchdog timeout in milliseconds. The app will feed roughly at half this interval.
+
+endmenu

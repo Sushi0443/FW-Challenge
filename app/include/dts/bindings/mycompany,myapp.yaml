@@ -1,0 +1,9 @@
+description: Custom app node for battery sample
+compatible: "mycompany,myapp"
+properties:
+  sample_interval_ms:
+    type: int
+  voltage_threshold_mv:
+    type: int
+  enable_ble:
+    type: boolean

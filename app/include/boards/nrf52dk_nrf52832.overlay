@@ -1,0 +1,41 @@
+/* ;nrf52840dk_nrf52840.overlay */
+
+/ {
+    vbatt: vbatt {
+        compatible = "voltage-divider"; 
+    /* Use channel index (reg) here so it matches &adc/channel@1 */
+        io-channels = <&adc 1>;
+        output-ohms = <1000000>;
+        full-ohms = <2000000>;
+        status = "okay";
+    };
+
+    app {
+        compatible = "mycompany,myapp";
+        status = "okay";
+        sample_interval_ms = <1000>;
+        voltage_threshold_mv = <3000>;
+        enable_ble;
+    };
+
+    aliases {
+        led-status = &led0;
+        btn-user = &button0;
+    };
+};
+
+&adc {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "okay";
+
+    channel@1 {
+        reg = <1>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+        zephyr,resolution = <12>;
+        zephyr,oversampling = <0>;
+        zephyr,input-positive = <NRF_SAADC_AIN1>;
+    };
+};

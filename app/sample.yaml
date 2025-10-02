@@ -1,0 +1,28 @@
+sample:
+  description: Bluetooth FW Challenge sample (custom BLE + ADC)
+  name: FW Challenge
+tests:
+  sample.bluetooth.peripheral_lbs.unit_tests:
+    build_only: false
+    sysbuild: false
+    platform_allow:
+      - qemu_cortex_m3
+    tags:
+      - ztest
+      - unit
+    extra_args:
+      - EXTRA_CONF_FILE=tests/prj.conf
+    harness: ztest
+
+  sample.bluetooth.peripheral_lbs.unit_tests:
+    build_only: false
+    sysbuild: false
+    platform_allow:
+      - native_posix
+      - native_sim
+    tags:
+      - ztest
+      - unit
+    extra_args:
+      - EXTRA_CONF_FILE=tests/prj.conf
+    harness: ztest

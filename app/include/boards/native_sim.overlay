@@ -1,0 +1,29 @@
+/* native_sim.overlay */
+
+/ {
+    adc_emul_vcc: adc-emul {
+        compatible = "zephyr,adc-emul";
+        io-channels = <&adc 0>;
+        voltage-mv = <3300>;
+    };
+
+    app {
+        compatible = "mycompany,myapp";
+        sample-interval-ms = <1000>;
+        voltage-threshold-mv = <3000>;
+        enable-ble;
+    };
+
+    aliases {
+        led-status = &virtual_led;
+        btn-user = &virtual_button;
+    };
+};
+
+virtual_led: virtual_led {
+    gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+};
+
+virtual_button: virtual_button {
+    gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
+};
