@@ -117,6 +117,35 @@ Key configuration options in `prj.conf`:
 6. Observe voltage updates at the configured interval
 7. Write a new interval value (e.g., 2000 for 2 seconds) to Sample Interval characteristic
 
+## Example Output
+
+When the application runs, you'll see output like this:
+
+```
+*** Booting Zephyr OS build v3.1.1 ***
+[00:00:00.000,000] <inf> main: Starting Bluetooth Low Energy Battery Monitor
+[00:00:00.000,000] <inf> main: NCS version: 3.1.1
+[00:00:00.010,000] <inf> main: Bluetooth initialized
+[00:00:00.010,000] <inf> battery_service: Battery Monitor Service initialized
+[00:00:00.010,000] <inf> battery_service: Service UUID: 12345678-1234-5678-1234-56789abcdef0
+[00:00:00.010,000] <inf> battery_service: Voltage Char UUID: 12345678-1234-5678-1234-56789abcdef1
+[00:00:00.010,000] <inf> battery_service: Interval Char UUID: 12345678-1234-5678-1234-56789abcdef2
+[00:00:00.020,000] <inf> main: Advertising successfully started
+[00:00:00.020,000] <inf> main: Device name: Battery Monitor
+[00:00:00.020,000] <inf> battery_service: Battery monitoring thread started
+[00:00:01.020,000] <inf> main: Battery voltage: 4200 mV (interval: 1000 ms)
+[00:00:02.020,000] <inf> main: Battery voltage: 4190 mV (interval: 1000 ms)
+[00:00:03.020,000] <inf> main: Battery voltage: 4180 mV (interval: 1000 ms)
+
+# When a client connects:
+[00:00:05.123,000] <inf> main: Connected: 12:34:56:78:9A:BC (random)
+[00:00:06.456,000] <inf> battery_service: Battery voltage notifications enabled
+
+# When client writes new interval:
+[00:00:10.789,000] <inf> battery_service: Sample interval updated to: 2000 ms
+[00:00:12.789,000] <inf> main: Battery voltage: 4160 mV (interval: 2000 ms)
+```
+
 ## Development Notes
 
 - The application uses a simulated battery voltage that cycles between 3.0V and 4.2V
