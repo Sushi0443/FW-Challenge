@@ -1,6 +1,6 @@
-FW Challenge Application (Minimal)
+FW Challenge Application
 
-This is a minimal Zephyr application that:
+This is a Zephyr application that:
 - Samples battery voltage via ADC at a configurable interval (CONFIG_APP_SAMPLE_INTERVAL_MS) which is configurable either by DT or Kconfig. As soon as a sample is taken, Power manager puts the adc module to sleep. Unfortunately, I do not have hardware that supports PM and was not able to fully test its functionality. I have place code snippets for it under config gaurds either way. When this firmware gets flashed on a capable hardware, it should run smoothly.
 - Advertises a custom BLE service with two characteristics (Voltage and Sample Interval). Includes CCC and CPF.
 - Sends push notifications of Voltage to a client when it subscribes.
@@ -37,3 +37,4 @@ Notes
 - User button and debouncing is done is src/buttons.c
 - Error handling is done is app_events.c and watchdog is implemented in watchdog.c
 - AI was used to generate minimal code like function headers and syntaxes.
+
