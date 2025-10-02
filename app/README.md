@@ -5,11 +5,11 @@ This is a Zephyr application that:
 - Advertises a custom BLE service with two characteristics (Voltage and Sample Interval). Includes CCC and CPF.
 - Sends push notifications of Voltage to a client when it subscribes.
 - User button disables adc sampling to conserve power and also stops pushing notifications. Includes a software debounce.
-- Persists a sample counter using Zephyr Settings + NVS. Gets logged and stored everytime a sample is taken. To avo
+- Persists a sample counter using Zephyr Settings + NVS. Gets logged and stored everytime a sample is taken. To avoid exessive flash wear, logic can be adapted to either write every 10 increments or after every 10 seconds.
 - Led blinking is done on delayed work items. idle state blinks less frequently. Sample is indicated by quick double blink and error state is indicated by rapid blinking.
 - As soon as any module(Button, adc, ble) reports an error, an event is registered and the callback is delegated to a work item. all work items are suspended until reset if an error is registered.
-- Watchdog is fed every 8/2 seconds
-- Custom device tree overlays for custom boards are provided. This application was developed and tested on nrf52dk instead of native-sim. Overlays for 
+- Watchdog is fed every 4 seconds
+- Custom device tree overlays for custom boards are provided. This application was developed and tested on nrf52dk instead of native-sim. However, overlays for native-sim and other hardware are provided.
 - Kconfig with project specific options were added and handled cleverly in the code as it takes precedence over DT.
 
 How to build (example)
@@ -37,4 +37,5 @@ Notes
 - User button and debouncing is done is src/buttons.c
 - Error handling is done is app_events.c and watchdog is implemented in watchdog.c
 - AI was used to generate minimal code like function headers and syntaxes.
+
 
